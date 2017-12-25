@@ -3,6 +3,8 @@ package com.lab.problemaday.StackInterleave;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
  *
@@ -54,7 +56,53 @@ public class StackInterleaver {
         System.out.println(stack);
 
     }
-    
+
+    /**
+     * Correct solution:
+     *
+     * @param <T>
+     * @param stack
+     * @return interleaved stack
+     */
+    public static <T> Stack<T> interLeave(Stack<T> stack) {
+
+        int i;
+        int size = stack.size();
+
+        Queue<T> queue = new ArrayDeque<>();
+
+        //add stack to queue/
+        while (!stack.isEmpty()) {
+            queue.add(stack.pop());
+        }
+
+        //add first half of the queue back into the queue/
+        for (i = 0; i < size / 2; i++) {
+            queue.add(queue.poll());
+        }
+
+        for (i = 0; i < (int) Math.ceil(size / 2.0); i++) {
+            stack.add(queue.poll());
+        }
+
+        for (i = 0; i < size / 2; i++) {
+            queue.add(stack.pop());
+            queue.add(queue.poll());
+        }
+
+        if (!stack.isEmpty()) {
+            queue.add(stack.pop());
+        }
+
+        while (!queue.isEmpty()) {
+            stack.add(queue.poll());
+        }
+
+        System.out.println("Interleaved stack: " + stack);
+
+        return stack;
+    }
+
     public static void main(String[] args) {
 
         Deque<Integer> oddQueue = new ArrayDeque<>(Arrays.asList(1, 2, 3, 4, 5));
