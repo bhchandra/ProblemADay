@@ -18,7 +18,14 @@ import java.util.Deque;
  */
 public class StackInterleaver {
 
-    static <T> void interleave(Deque<T> stack) {
+    /**
+     * Incorrect Solution:<br>
+     * Doesn't respect the semantics of a stack or a queue
+     *
+     * @param <T>
+     * @param stack
+     */
+    public static <T> void interleave(Deque<T> stack) {
         int size = stack.size();
         boolean isEven = size % 2 == 0;
 
@@ -47,7 +54,7 @@ public class StackInterleaver {
         System.out.println(stack);
 
     }
-
+    
     public static void main(String[] args) {
 
         Deque<Integer> oddQueue = new ArrayDeque<>(Arrays.asList(1, 2, 3, 4, 5));
