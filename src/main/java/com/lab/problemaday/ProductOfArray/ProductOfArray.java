@@ -1,7 +1,5 @@
 package com.lab.problemaday.ProductOfArray;
 
-import java.util.Arrays;
-
 /**
  * Given an array of integers, return a new array such that each element at
  * index i of the new array is the product of all the numbers in the original
@@ -20,7 +18,7 @@ public class ProductOfArray {
      * solution: 
      * @see <a href = https://stackoverflow.com/questions/2680548/given-an-array-of-numbers-return-array-of-products-of-all-other-numbers-no-div>solution</a>
      * @param arr
-     * @return 
+     * @return the product array.
      */
     public static long[] productArray(int[] arr) {
         final int len = arr.length;
@@ -46,14 +44,6 @@ public class ProductOfArray {
         }
 
         return product;
-    }
-
-    public static void main(String[] args) {
-        int[] arr = new int[]{1, 2, 3, 4, 5};
-
-        String toString = Arrays.toString(productArray(arr));
-
-        System.out.println(toString);
     }
 
 }
