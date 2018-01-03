@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-class Node<T extends Comparable<T>> {
+public class Node<T extends Comparable<T>> {
 
     T data;
     Node<T> left;

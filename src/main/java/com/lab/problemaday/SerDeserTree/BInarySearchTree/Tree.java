@@ -87,4 +87,7 @@ public class Tree<T extends Comparable<T>> {
         return n.data;
     }
 
+    public void setRoot(Node<T> root){
+        this.root = root;
+    }
 }
