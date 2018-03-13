@@ -1,5 +1,6 @@
 package com.lab.problemaday.PrecisionIntegerIncrement;
 
+import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 
 /**
@@ -17,19 +18,21 @@ public class EncoderBinary {
 
         int diff = Math.abs(l1 - l2);
 
-        IntStream zeros = IntStream.generate(() -> 48) //ASCII zero
+        final IntStream zeros = IntStream.generate(() -> 48) //ASCII zero
                 .limit(diff);
 
         String bigger = (l1 >= l2) ? s : t;
         String smaller = (l1 < l2) ? s : t;
 
+        final IntUnaryOperator extractIntValue = i -> i - '0';
+
         int[] arr1 = bigger.chars()
-                .map(i -> i - '0')
+                .map(extractIntValue)
                 .toArray();
 
         //append zeros to smaller array.
         int[] arr2 = IntStream.concat(zeros, smaller.chars())
-                .map(i -> i - '0')
+                .map(extractIntValue)
                 .toArray();
 
         int len = arr1.length - 1;
