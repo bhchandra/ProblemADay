@@ -24,19 +24,16 @@ public class EncoderBinary {
         String smaller = (l1 < l2) ? s : t;
 
         int[] arr1 = bigger.chars()
-                .mapToObj(i -> (char) i)
-                .map(String::valueOf)
-                .mapToInt(Integer::valueOf)
+                .map(i -> i - '0')
                 .toArray();
 
+        //append zeros to smaller array.
         int[] arr2 = IntStream.concat(zeros, smaller.chars())
-                .mapToObj(i -> (char) i)
-                .map(String::valueOf)
-                .mapToInt(Integer::valueOf)
+                .map(i -> i - '0')
                 .toArray();
 
         int len = arr1.length - 1;
-        int[] arr = new int[len + 1];
+        int[] arr = new int[arr1.length];
 
         int carry = 0;
         for (int i = len; i >= 0; i--) {
@@ -63,6 +60,7 @@ public class EncoderBinary {
                 ? new int[arr.length + 1]
                 : arr;
 
+        //if carry is present append 1 to the result.
         if (carry == 1) {
             for (int i = arr.length - 1; i >= 0; i--) {
                 result[i] = arr[i];
