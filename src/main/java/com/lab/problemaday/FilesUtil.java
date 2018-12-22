@@ -1,0 +1,73 @@
+package com.lab.problemaday;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toList;
+
+/**
+ * @author MITRA
+ */
+public class FilesUtil {
+
+    private List<File> filesMatching(Path dir, Predicate<File> matcher) {
+        return Try.of(
+                () -> Files.list(dir)
+                        .map(Path::toFile)
+                        .filter(matcher)
+                        .collect(toList()))
+                .applyOrElse(ArrayList::new);
+    }
+
+    List<File> filesEnding(Path dir, String regex) {
+        return filesMatching(dir, f -> f.getName().endsWith(regex));
+    }
+
+    List<File> filesContaining(Path dir, String regex) {
+        return filesMatching(dir, f -> f.getName().contains(regex));
+    }
+
+    List<File> filesMatching(Path dir, String regex) {
+        return filesMatching(dir, f -> f.getName().matches(regex));
+    }
+
+    @FunctionalInterface
+    interface CheckedSupplier<T> {
+
+        T get() throws IOException;
+    }
+
+    @FunctionalInterface
+    interface Try<T> {
+
+        T apply();
+
+        static <T> Try<T> of(CheckedSupplier<T> s) {
+            return () -> {
+                try {
+                    return s.get();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            };
+        }
+
+        default T applyOrElse(Supplier<T> s) {
+            try {
+                return apply();
+            } catch (Exception e) {
+                return s.get();
+            }
+        }
+    }
+
+
+}
