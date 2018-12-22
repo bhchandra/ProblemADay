@@ -16,9 +16,9 @@ import static java.util.stream.Collectors.toList;
 /**
  * @author MITRA
  */
-public class FilesUtil {
+public final class FilesUtil {
 
-    private List<File> filesMatching(Path dir, Predicate<File> matcher) {
+    private static List<File> filesMatching(Path dir, Predicate<File> matcher) {
         return Try.of(
                 () -> Files.list(dir)
                         .map(Path::toFile)
@@ -27,26 +27,26 @@ public class FilesUtil {
                 .applyOrElse(ArrayList::new);
     }
 
-    List<File> filesEnding(Path dir, String regex) {
+    public static List<File> filesEnding(Path dir, String regex) {
         return filesMatching(dir, f -> f.getName().endsWith(regex));
     }
 
-    List<File> filesContaining(Path dir, String regex) {
+    public static List<File> filesContaining(Path dir, String regex) {
         return filesMatching(dir, f -> f.getName().contains(regex));
     }
 
-    List<File> filesMatching(Path dir, String regex) {
+    public static List<File> filesMatching(Path dir, String regex) {
         return filesMatching(dir, f -> f.getName().matches(regex));
     }
 
     @FunctionalInterface
-    interface CheckedSupplier<T> {
+    public interface CheckedSupplier<T> {
 
         T get() throws IOException;
     }
 
     @FunctionalInterface
-    interface Try<T> {
+    public interface Try<T> {
 
         T apply();
 
@@ -68,6 +68,5 @@ public class FilesUtil {
             }
         }
     }
-
 
 }
