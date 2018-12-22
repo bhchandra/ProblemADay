@@ -62,3 +62,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /nbproject/
+.classpath
+*.project
+target/
+.idea/
+*.prefs
+.vscode/launch.json
+.vscode/settings.json
+*.iml
