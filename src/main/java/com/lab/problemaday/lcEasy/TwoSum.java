@@ -1,13 +1,13 @@
 package com.lab.problemaday.lcEasy;
 
 
+import com.google.common.base.Stopwatch;
 import lombok.NonNull;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import static java.util.Collections.emptyList;
@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 public class TwoSum {
 
     /**
-     * brute force: o(n^2)
+     * brute force: o(n^2), space : o(1)
      */
     public static List<Integer> indices(@NonNull List<Integer> nums, @NonNull Integer sum) {
         if (nums.isEmpty()) return emptyList();
@@ -50,18 +50,22 @@ public class TwoSum {
                 .toArray();
     }
 
-
-    public static void main(String[] args) {
-
-        List<Integer> indices = indices(Arrays.asList(2, 7, 11, 15), 9);
-
-        System.out.println(indices);
-
-        List<Integer> indices2 = indices(Arrays.asList(2, 5, 5, 11), 10);
-
-        System.out.println(indices2);
-
-
+    /**
+     * Time complexity : O(n)
+     * Space complexity : O(n)
+     */
+    public static List<Integer> onePassHashTable(@NonNull List<Integer> nums, @NonNull Integer sum) {
+        if (nums.isEmpty()) return emptyList();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.size(); i++) {
+            Integer n1 = nums.get(i);
+            Integer n2 = sum - n1;
+            if (map.containsKey(n2)) {
+                return Arrays.asList(map.get(n2), i);
+            }
+            map.put(n1, i);
+        }
+        return emptyList();
     }
 
 }
