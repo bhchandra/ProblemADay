@@ -82,9 +82,9 @@ public class AddTwoNumbers {
 
         if (overflow != 0) {
             if (!transitionDone) {
-                l1Last.next = new ListNode(overflow);
+                l1Last.next = ListNode.of(overflow);
             } else {
-                l2Last.next = new ListNode(overflow);
+                l2Last.next = ListNode.of(overflow);
             }
         }
 
@@ -110,7 +110,7 @@ public class AddTwoNumbers {
 
 
         System.out.println("l1 : " + node11);
-        System.out.println("l2 : " + node12);
+        System.out.println("l2 : " + node21);
 
 
         ListNode result = addTwoNumbers(node11, node21);
