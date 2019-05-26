@@ -76,6 +76,7 @@ public class StackWithMaxAPI<E extends Comparable<E>> {
 
 
     public E max() {
+        if (empty()) throw new IllegalStateException("stack is empty");
         return deque.peek().associatedMax;
     }
 
