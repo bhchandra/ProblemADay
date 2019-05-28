@@ -86,6 +86,9 @@ public class UberRandomMap {
 
         Collections.swap(keyValues, index, lastIndex);
 
+        KeyValue swappedValue = keyValues.get(index);
+        keyToIndex.put(swappedValue.key, index);
+
         keyValues.remove(lastIndex); //since it is the last index, it just nullifies the entry.
         keyToIndex.remove(key);
     }
@@ -112,6 +115,8 @@ public class UberRandomMap {
 
 
         assert map.getRandom() != null;
+
+        map.remove(2);
 
 
     }
